@@ -80,7 +80,6 @@
   box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
   padding: 30px;
   margin-bottom: 40px;
-  display: none; /* Başlangıçta gizli */
 }
 
 .create-auction-container.active {
@@ -150,6 +149,7 @@
 
 .create-auction-tab-content {
   display: none;
+  overflow: visible;
 }
 
 .create-auction-tab-content.active {

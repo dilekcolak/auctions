@@ -4,6 +4,7 @@ import TabNavigation from "../components/TabNavigation";
 import { dummyAuctions } from "../data/dummyAuctions";
 import AuctionFilters from "../components/AuctionFilters";
 import AuctionList from "../components/AuctionList";
+import { useNavigate } from "react-router-dom";
 
 const AuctionsPage = () => {
   const [activeTab, setActiveTab] = useState("open-auctions");
@@ -77,8 +78,9 @@ const AuctionsPage = () => {
   const openAuctions = filteredAuctions.filter((a) => a.status === "open");
   const closedAuctions = filteredAuctions.filter((a) => a.status === "closed");
 
+  const navigate = useNavigate();
   const handleCreateAuction = () => {
-    console.log("ihale oluştur butonuna tıklandı"); //createAuction yazıldıktan sonra değiştirilecek
+    navigate("/create-auction");
   };
 
   return (
