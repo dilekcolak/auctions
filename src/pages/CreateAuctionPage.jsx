@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import CreateAuctionHeader from "../components/CreateAuction/CreateAuctionHeader";
 import CreateAuctionTabs from "../components/CreateAuction/CreateAuctionTabs";
 import MaterialRequestForm from "../components/CreateAuction/MaterialRequest/MaterialRequestForm";
@@ -12,6 +13,23 @@ const CreateAuctionPage = () => {
   const [isDraftModalOpen, setIsDraftModalOpen] = useState(false);
   const [drafts] = useState([]); //setDrafts şuanlık kullanılmadığı için yazmadım
 
+  const navigate = useNavigate();
+
+  const handleClose = () => {
+    navigate("/");
+  };
+
+  const handleBack = () => {
+    navigate("/");
+  };
+
+  const handleSaveDraft = () => {
+    console.log("Taslak kaydetme işlemi başlatıldı");
+  };
+  const handlePublish = () => {
+    console.log("İhale yayınlama işlemi başlatıldı");
+    // buraya form verilerini toplayıp API'ye gönderme işlemini ekleyeceksin
+  };
   const handleNext = () => {
     if (activeTab === "material-request") {
       setActiveTab("auction-settings");
@@ -35,7 +53,7 @@ const CreateAuctionPage = () => {
 
   return (
     <div className="create-auction-container">
-      <CreateAuctionHeader />
+      <CreateAuctionHeader onClose={handleClose} />
       <CreateAuctionTabs activeTab={activeTab} setActiveTab={setActiveTab} />
 
       <div className="create-auction-tab-contents">
@@ -54,7 +72,12 @@ const CreateAuctionPage = () => {
         )}
       </div>
 
-      <AuctionFormActions onShowDrafts={handleShowDrafts} />
+      <AuctionFormActions
+        onBack={handleBack}
+        onShowDrafts={handleShowDrafts}
+        onSaveDraft={handleSaveDraft}
+        onPublish={handlePublish}
+      />
 
       <DraftAuctionsModal
         isOpen={isDraftModalOpen}
@@ -65,5 +88,4 @@ const CreateAuctionPage = () => {
     </div>
   );
 };
-
 export default CreateAuctionPage;

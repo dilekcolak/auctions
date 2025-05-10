@@ -6,6 +6,7 @@ import MaterialDetailModal from "./MaterialDetailModal";
 const MaterialRequestForm = ({ onNext, activeTab }) => {
   const [rows, setRows] = useState([{ id: Date.now() }]);
   const [selectedRow, setSelectedRow] = useState(null);
+  const [isDetailModalOpen, setIsDetailModalOpen] = useState(false);
 
   const handleImport = () => {
     console.log("Excel içe aktarma işlemi başlatıldı...");
@@ -40,11 +41,10 @@ const MaterialRequestForm = ({ onNext, activeTab }) => {
 
   const handleViewDetails = (index) => {
     setSelectedRow(rows[index]);
+    setIsDetailModalOpen(true);
   };
 
-  const handleCloseModal = () => {
-    setSelectedRow(null);
-  };
+ 
 
   const handleEditRow = (index) => {
     console.log("Düzenleme başlatıldı:", rows[index]);
@@ -68,8 +68,11 @@ const MaterialRequestForm = ({ onNext, activeTab }) => {
         onAddRow={handleAddRow}
       />
 
-      {selectedRow && (
-        <MaterialDetailModal row={selectedRow} onClose={handleCloseModal} />
+      {isDetailModalOpen && selectedRow && (
+        <MaterialDetailModal
+          row={selectedRow}
+          onClose={() => setIsDetailModalOpen(false)}
+        />
       )}
 
       <div className="form-navigation">
